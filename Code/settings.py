@@ -12,11 +12,13 @@ def Constantes():
 def variaveis():
     
     Rodando = True
+    FPS = 60
 
-    return Rodando
+    return Rodando,FPS
 
 def Cores():
     
     PRETO = (0,0,0)
+    BRANCO = (255,255,255)
 
-    return PRETO
+    return PRETO,BRANCO

@@ -1,2 +1,2 @@
-# Onde sera chamado ficara o codigo com todas as funcoes sendo chamada
+# Arquivo que sera usado para somente chamar a função menu e rodar o jogo
 
