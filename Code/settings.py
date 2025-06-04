@@ -13,8 +13,12 @@ def variaveis():
     
     Rodando = True
     FPS = 60
+    X_Jogador = 100
+    Y_Jogador = 100
+    Velocidade = 3
 
-    return Rodando,FPS
+
+    return Rodando,FPS, X_Jogador,Y_Jogador,Velocidade
 
 def Cores():
     

@@ -34,25 +34,29 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, sprite_path):
         super().__init__()
 
-        # Separa e carrega uma lista com as sprites no msm png
+        # Separa e carrega uma lista com as sprites (frames) que estão no mesmo PNG
         self.frames = Separa_Sprites_Mesmo_PNG(sprite_path, Largura_sprites, Altura_sprites)
 
-        # Inicializa o frame atual
+        # Inicializa o índice do frame atual e define a imagem que será desenhada
         self.frame_index = 0
         self.image = self.frames[self.frame_index]
 
-        # Posição
+        # Cria o rect (retângulo) de posicionamento com base na imagem
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
-        # Controle da animação
+        # Contadores para controlar a troca de frames (animação)
         self.contador_animacao = 0
-        self.velocidade_animacao = 10  # menor = mais rápido
+        self.velocidade_animacao = 10  # quanto menor, mais rápida a troca de frames
 
     def update(self):
-        # Atualiza a animação
+        # Aumenta o contador a cada chamada de update()
         self.contador_animacao += 1
+
+        # Quando o contador alcança 'velocidade_animacao', troca de frame
         if self.contador_animacao >= self.velocidade_animacao:
             self.contador_animacao = 0
+            # calcula o próximo índice de frame (cíclico, com %)
             self.frame_index = (self.frame_index + 1) % len(self.frames)
+            # atualiza a imagem que será desenhada
             self.image = self.frames[self.frame_index]
