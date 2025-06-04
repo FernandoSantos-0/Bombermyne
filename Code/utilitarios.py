@@ -1,1 +1,2 @@
 # Módulos utilitários (colisões, helpers)
+
