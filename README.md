@@ -1,4 +1,4 @@
-# Python-Bomberman-Game 🎮💣
+# Python-Bombemyne 🎮💣
 
 Jogo no estilo *Bomberman* desenvolvido em **Python** utilizando a biblioteca **Pygame**.
 
