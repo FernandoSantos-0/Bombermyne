@@ -8,10 +8,27 @@ Jogo no estilo *Bomberman* desenvolvido em **Python** utilizando a biblioteca **
 
 O projeto será desenvolvido seguindo as etapas abaixo:
 
-1. **Mecânicas do jogo** – implementação do núcleo da jogabilidade (movimento, colisão, bombas, inimigos).
-2. **Sonorização** – inserção de efeitos sonoros e músicas.
-3. **Texturização** – aplicação de sprites, fundo e outros elementos gráficos.
-4. **Testes gerais e finalização** – verificação de bugs, otimizações e ajustes finais.
+1. **Mecânicas do jogo**
+     - Objetivo: Construir o núcleo da jogabilidade.
+   - Tarefas:
+     - Configurar janela Pygame e loop principal.
+     - Criar classe `Player` para movimentação (teclas de seta).
+     - Implementar colisões básicas com paredes e obstáculos.
+     - Desenvolver classe `Bomb` para lançar e explodir bombas.
+     - Criar classe `Enemy` com IA simples (movimento randômico).
+   - Critérios de Conclusão:
+     - Jogador se move sem travamentos.
+     - Bombas explodem e removem blocos destructíveis.
+     - Inimigos percorrem o mapa aleatoriamente.
+
+2. **Sonorização** 
+    – inserção de efeitos sonoros e músicas.
+
+3. **Texturização** 
+    – aplicação de sprites, fundo e outros elementos gráficos.
+
+4. **Testes gerais e finalização** 
+    – verificação de bugs, otimizações e ajustes finais.
 
 Os arquivos principais ficarão na pasta `code`. Quando uma versão estiver **estável e funcional**, será feito um backup da build.
 
