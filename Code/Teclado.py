@@ -14,11 +14,15 @@ def teclado(X_Jogador, Y_Jogador, velocidade):
 
     if teclas[pygame.K_UP]:
         Y_Jogador -= velocidade
+
     if teclas[pygame.K_DOWN]:
         Y_Jogador += velocidade
+
     if teclas[pygame.K_LEFT]:
         X_Jogador -= velocidade
+
     if teclas[pygame.K_RIGHT]:
         X_Jogador += velocidade
+        
 
     return True, X_Jogador, Y_Jogador

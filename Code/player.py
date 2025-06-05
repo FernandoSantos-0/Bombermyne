@@ -1,9 +1,6 @@
 # Lógica do jogador
 
 import pygame
-import settings
-
-Largura,Altura,Largura_sprites,Altura_sprites = settings.Constantes() # Constantes 
 
 pygame.init()
 
@@ -31,32 +28,24 @@ def Separa_Sprites_Mesmo_PNG(path, Largura_sprites, Altura_sprites):
     return frames
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, sprite_path):
-        super().__init__()
+    def __init__(self,path, Largura_sprites, Altura_sprites,X_Jogador,Y_jogador):
+        pygame.sprite.Sprite.__init__(self)
+        
+        # aqui e criado uma lista com as imagen que foram recortadas na funcao
+        self.frames = Separa_Sprites_Mesmo_PNG(path, Largura_sprites, Altura_sprites) 
+        
+        
+        self.frames_index = 0 #criando variavel valendo x
+        self.image = self.frames[self.frames_index] # separando uma imagen da lista usando a variavel crianda anteriormente
 
-        # Separa e carrega uma lista com as sprites (frames) que estão no mesmo PNG
-        self.frames = Separa_Sprites_Mesmo_PNG(sprite_path, Largura_sprites, Altura_sprites)
+        self.rect = self.image.get_rect() # pegando o tamanho da imagen em pixiel
+        self.rect.topleft = (X_Jogador,Y_jogador)   # X e Y onde a imagen vai sert desenhada 
 
-        # Inicializa o índice do frame atual e define a imagem que será desenhada
-        self.frame_index = 0
-        self.image = self.frames[self.frame_index]
+    def atualizar_sprites(self):
+        self.frames_index += 0.25 # controla a velocidade por aqui quanto menor mais lento
+        
+        if self.frames_index >= len(self.frames): # verifica quando a variavel index for maior doque a quantidade de sprites
 
-        # Cria o rect (retângulo) de posicionamento com base na imagem
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
-
-        # Contadores para controlar a troca de frames (animação)
-        self.contador_animacao = 0
-        self.velocidade_animacao = 10  # quanto menor, mais rápida a troca de frames
-
-    def update(self):
-        # Aumenta o contador a cada chamada de update()
-        self.contador_animacao += 1
-
-        # Quando o contador alcança 'velocidade_animacao', troca de frame
-        if self.contador_animacao >= self.velocidade_animacao:
-            self.contador_animacao = 0
-            # calcula o próximo índice de frame (cíclico, com %)
-            self.frame_index = (self.frame_index + 1) % len(self.frames)
-            # atualiza a imagem que será desenhada
-            self.image = self.frames[self.frame_index]
+            self.frames_index = 0 # voltando o valor da variavel para 0 para por animacao em loop
+        
+        self.image = self.frames[int(self.frames_index)] # atualizando a imagen a ser desenhada 

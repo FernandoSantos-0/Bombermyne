@@ -16,10 +16,10 @@ pygame.init()
 Tela = pygame.display.set_mode((Largura,Altura)) # Criando tela
 pygame.display.set_caption("BomberMyne") # Nomeando a Tela
 
-jogador = player.Player(X_Jogador, Y_Jogador, sprite_path="Assets/sprites/character/idle-front.png") 
-grupo_sprites = pygame.sprite.Group(jogador)
-
 Relogio = pygame.time.Clock() # Definindo relogio
+
+jogador = player.Player("Assets/sprites/character/idle-front.png", Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
+grupo_sprites = pygame.sprite.Group(jogador)
 
 while Rodando:
 
@@ -28,12 +28,12 @@ while Rodando:
     Tela.fill(PRETO) # Pintando a tela de Preto
 
     Rodando,X_Jogador,Y_Jogador = Teclado.teclado(X_Jogador,Y_Jogador,Velocidade) # Integração com o teclado
-
-    jogador.rect.topleft = (X_Jogador, Y_Jogador)
-
-    grupo_sprites.update() #Atualiza as sprites
-
-    grupo_sprites.draw(Tela) # desenha as sprites
     
+    grupo_sprites.draw(Tela) # Desenha o sprite 
+    
+    jogador.atualizar_sprites() # atualiza o sprite para no proximo rodada do while ser outra
+
+    jogador.rect.topleft = (X_Jogador, Y_Jogador) # atualiza as cordenadas no X e Y do personagem
+
     pygame.display.flip() # Atualiza a tela
 
