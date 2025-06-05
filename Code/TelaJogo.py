@@ -3,7 +3,8 @@
 import pygame
 import settings
 import Teclado
-import player
+import player 
+import bomba
 
 Largura,Altura,Largura_sprites,Altura_sprites,flag_boneco_parado = settings.Constantes() # Constantes 
 
@@ -22,6 +23,9 @@ Relogio = pygame.time.Clock() # Definindo relogio
 jogador = player.Player(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
 grupo_sprites = pygame.sprite.Group(jogador)
 
+dynamite = bomba.Bomba(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
+grupo_sprites_bomba = pygame.sprite.Group(dynamite)
+
 while Rodando:
 
     Relogio.tick(FPS) # FPS
@@ -30,19 +34,9 @@ while Rodando:
 
     Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado = Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado) # Integração com o teclado
     
-    grupo_sprites.draw(Tela) # Desenha o sprite 
-    
-    jogador.atualizar_sprites() # atualiza o sprite para no proximo rodada do while ser outra
+    bomba.Sprites_Bomba(Tela,grupo_sprites_bomba,dynamite) # comando necessario para o desenha na tela a bomba
 
-    jogador.rect.topleft = (X_Jogador, Y_Jogador) # atualiza as cordenadas no X e Y do personagem
-
-    if jogador.estado != estado: # checa se o estado dentro da class e o criado na pasta settings sao diferentes
-        jogador.estado = estado 
-        jogador.frames = jogador.animacoes[estado]
-        jogador.frames_index = 0
-
-        # se forem entao o estado dentro do class e mudado o index e reiniciado e a animacao e trocado para a 
-        # o que representa o estado novo(o que foi definido pelas teclas)
+    player.sprites_jogador(grupo_sprites,Tela,jogador,X_Jogador,Y_Jogador,estado) # comando necessario para desenha na tela o player 
 
     pygame.display.flip() # Atualiza a tela
 

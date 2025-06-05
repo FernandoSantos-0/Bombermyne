@@ -7,10 +7,10 @@ pygame.init()
 def Separa_Sprites_Mesmo_PNG(path,Largura_sprites, Altura_sprites):
     
     Imagem = pygame.image.load(path).convert_alpha()
-    sheet_width, sheet_height = Imagem.get_size()
+    Largura_total_da_imagen, Altura_total_da_imagen = Imagem.get_size()
     
-    N_colunas = sheet_width // Largura_sprites
-    N_linhas = sheet_height // Altura_sprites
+    N_colunas = Largura_total_da_imagen // Largura_sprites
+    N_linhas = Altura_total_da_imagen // Altura_sprites
 
     frames = []
 
@@ -28,7 +28,7 @@ def Separa_Sprites_Mesmo_PNG(path,Largura_sprites, Altura_sprites):
     return frames
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, Largura_sprites, Altura_sprites,X_Jogador,Y_jogador):
+    def __init__(self, Largura_sprites, Altura_sprites,X_Jogador,Y_Jogador):
         pygame.sprite.Sprite.__init__(self)
         
         self.animacoes = {
@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.image = self.frames[self.frames_index] # separando uma imagen da lista usando a variavel crianda anteriormente
 
         self.rect = self.image.get_rect() # pegando o tamanho da imagen em pixiel
-        self.rect.topleft = (X_Jogador,Y_jogador)   # X e Y onde a imagen vai sert desenhada 
+        self.rect.topleft = (X_Jogador,Y_Jogador)   # X e Y onde a imagen vai sert desenhada 
 
     def atualizar_sprites(self):
         self.frames_index += 0.25 # controla a velocidade por aqui quanto menor mais lento
@@ -61,3 +61,18 @@ class Player(pygame.sprite.Sprite):
             self.frames_index = 0 # voltando o valor da variavel para 0 para por animacao em loop
         
         self.image = self.frames[int(self.frames_index)] # atualizando a imagen a ser desenhada 
+
+def sprites_jogador(grupo_sprites,Tela,jogador,X_Jogador,Y_Jogador,estado):
+    grupo_sprites.draw(Tela) # Desenha o sprite 
+    
+    jogador.atualizar_sprites() # atualiza o sprite para no proximo rodada do while ser outra
+
+    jogador.rect.topleft = (X_Jogador, Y_Jogador) # atualiza as cordenadas no X e Y do personagem
+
+    if jogador.estado != estado: # checa se o estado dentro da class e o criado na pasta settings sao diferentes
+        jogador.estado = estado 
+        jogador.frames = jogador.animacoes[estado]
+        jogador.frames_index = 0
+
+        # se forem entao o estado dentro do class e mudado o index e reiniciado e a animacao e trocado para a 
+        # o que representa o estado novo(o que foi definido pelas teclas)
