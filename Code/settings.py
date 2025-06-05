@@ -6,8 +6,9 @@ def Constantes():
     Altura = 480
     Largura_sprites = 32
     Altura_sprites = 32
-    
-    return Largura,Altura,Largura_sprites,Altura_sprites
+    flag_boneco_parado = 1
+
+    return Largura,Altura,Largura_sprites,Altura_sprites,flag_boneco_parado
 
 def variaveis():
     
@@ -16,9 +17,9 @@ def variaveis():
     X_Jogador = 100
     Y_Jogador = 100
     Velocidade = 3
+    estado = 'parado_frente'
 
-
-    return Rodando,FPS, X_Jogador,Y_Jogador,Velocidade
+    return Rodando,FPS, X_Jogador,Y_Jogador,Velocidade,estado
 
 def Cores():
     

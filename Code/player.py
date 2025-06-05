@@ -4,7 +4,7 @@ import pygame
 
 pygame.init()
 
-def Separa_Sprites_Mesmo_PNG(path, Largura_sprites, Altura_sprites):
+def Separa_Sprites_Mesmo_PNG(path,Largura_sprites, Altura_sprites):
     
     Imagem = pygame.image.load(path).convert_alpha()
     sheet_width, sheet_height = Imagem.get_size()
@@ -28,13 +28,25 @@ def Separa_Sprites_Mesmo_PNG(path, Largura_sprites, Altura_sprites):
     return frames
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self,path, Largura_sprites, Altura_sprites,X_Jogador,Y_jogador):
+    def __init__(self, Largura_sprites, Altura_sprites,X_Jogador,Y_jogador):
         pygame.sprite.Sprite.__init__(self)
         
-        # aqui e criado uma lista com as imagen que foram recortadas na funcao
-        self.frames = Separa_Sprites_Mesmo_PNG(path, Largura_sprites, Altura_sprites) 
+        self.animacoes = {
+            'parado_baixo': Separa_Sprites_Mesmo_PNG("Assets/sprites/character/idle-front.png", Largura_sprites, Altura_sprites),
+            'parado_cima': Separa_Sprites_Mesmo_PNG("Assets/sprites/character/idle-back.png", Largura_sprites, Altura_sprites),
+            'parado_direita': Separa_Sprites_Mesmo_PNG("Assets/sprites/character/idle-right.png", Largura_sprites, Altura_sprites),
+            'parado_esquerda': Separa_Sprites_Mesmo_PNG("Assets/sprites/character/idle-left.png", Largura_sprites, Altura_sprites),
+            
+            'andando_baixo': Separa_Sprites_Mesmo_PNG("Assets/sprites/character/walk-front.png", Largura_sprites, Altura_sprites),
+            'andando_cima': Separa_Sprites_Mesmo_PNG("Assets/sprites/character/walk-back.png", Largura_sprites, Altura_sprites),
+            'andando_direita': Separa_Sprites_Mesmo_PNG("Assets/sprites/character/walk-right.png", Largura_sprites, Altura_sprites),
+            'andando_esquerda': Separa_Sprites_Mesmo_PNG("Assets/sprites/character/walk-left.png", Largura_sprites, Altura_sprites)
+
+        } # lista de animacoes do boneco
         
-        
+        self.estado = 'parado_direita' #variavel que define qual animacao sera escolhida dependdo do botao
+        self.frames = self.animacoes[self.estado] # cria a lista de frames com base na animacao escolhida
+
         self.frames_index = 0 #criando variavel valendo x
         self.image = self.frames[self.frames_index] # separando uma imagen da lista usando a variavel crianda anteriormente
 
