@@ -4,7 +4,7 @@ import pygame
 def teclado(X_Jogador, Y_Jogador, velocidade,estado,flag_boneco_parado):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            return False, X_Jogador, Y_Jogador
+            return False, X_Jogador, Y_Jogador,estado,flag_boneco_parado
         
     teclas = pygame.key.get_pressed()
     estado = None
