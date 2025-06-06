@@ -6,7 +6,7 @@ pygame.init()
 
 def Separa_Sprites_Bomba(Largura_sprites, Altura_sprites):
     
-    Imagem = pygame.image.load("Assets\sprites\items\dynamite-pack.png").convert_alpha()
+    Imagem = pygame.image.load("Assets/sprites/items/dynamite-pack.png").convert_alpha()
     Largura_total_da_imagen, Altura_total_da_imagen = Imagem.get_size()
     
     N_colunas = Largura_total_da_imagen // Largura_sprites
@@ -40,7 +40,7 @@ class Bomba(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (X_Jogador,Y_jogador)
 
-    def Atualizar_sprite_Bomba(self):
+    def update(self):
         self.frames_index += 0.25
 
         if self.frames_index >= len(self.frames):
@@ -48,8 +48,8 @@ class Bomba(pygame.sprite.Sprite):
 
         self.image = self.frames[int(self.frames_index)]
 
-def Sprites_Bomba(Tela,grupo_sprites_bomba,dynamite):
+def Sprites_Bomba(Tela,grupo_sprites_bomba):
    
     grupo_sprites_bomba.draw(Tela)
-    
-    dynamite.Atualizar_sprite_Bomba()    
+    grupo_sprites_bomba.update()
+        

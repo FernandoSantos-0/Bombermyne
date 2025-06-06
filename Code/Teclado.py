@@ -1,11 +1,14 @@
 import pygame
 
 
-def teclado(X_Jogador, Y_Jogador, velocidade,estado,flag_boneco_parado):
+def teclado(X_Jogador, Y_Jogador, velocidade,estado,flag_boneco_parado,flag_bomba):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            return False, X_Jogador, Y_Jogador,estado,flag_boneco_parado
-        
+            return False, X_Jogador, Y_Jogador,estado,flag_boneco_parado,flag_bomba
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_b:
+                flag_bomba = 1
+
     teclas = pygame.key.get_pressed()
     estado = None
 
@@ -42,4 +45,4 @@ def teclado(X_Jogador, Y_Jogador, velocidade,estado,flag_boneco_parado):
         elif(flag_boneco_parado == 4):
             estado = 'parado_direita'
 
-    return True, X_Jogador, Y_Jogador,estado,flag_boneco_parado
+    return True, X_Jogador, Y_Jogador,estado,flag_boneco_parado,flag_bomba

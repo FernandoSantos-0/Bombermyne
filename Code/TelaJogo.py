@@ -6,10 +6,9 @@ import Teclado
 import player 
 import bomba
 
-Largura,Altura,Largura_sprites,Altura_sprites,flag_boneco_parado = settings.Constantes() # Constantes 
+Largura,Altura,Largura_sprites,Altura_sprites,flag_boneco_parado,flag_bomba = settings.Constantes() # Constantes 
 
 Rodando, FPS, X_Jogador,Y_Jogador,Velocidade,estado = settings.variaveis() # Variaveis 
-
 
 PRETO, BRANCO = settings.Cores() # Cores
 
@@ -23,8 +22,7 @@ Relogio = pygame.time.Clock() # Definindo relogio
 jogador = player.Player(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
 grupo_sprites = pygame.sprite.Group(jogador)
 
-dynamite = bomba.Bomba(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
-grupo_sprites_bomba = pygame.sprite.Group(dynamite)
+grupo_sprites_bomba = pygame.sprite.Group() # incializando os grupos de sprites das bombas
 
 while Rodando:
 
@@ -32,10 +30,15 @@ while Rodando:
 
     Tela.fill(PRETO) # Pintando a tela de Preto
 
-    Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado = Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado) # Integração com o teclado
+    Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado,flag_bomba = Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado,flag_bomba) # Integração com o teclado
     
-    bomba.Sprites_Bomba(Tela,grupo_sprites_bomba,dynamite) # comando necessario para o desenha na tela a bomba
-
+    if flag_bomba == 1:
+        nova_bomba = bomba.Bomba(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
+        grupo_sprites_bomba.add(nova_bomba)
+        flag_bomba = 0     
+       
+    bomba.Sprites_Bomba(Tela,grupo_sprites_bomba) # comando necessario para o desenha na tela a bomba
+    
     player.sprites_jogador(grupo_sprites,Tela,jogador,X_Jogador,Y_Jogador,estado) # comando necessario para desenha na tela o player 
 
     pygame.display.flip() # Atualiza a tela
