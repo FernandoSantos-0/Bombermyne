@@ -40,6 +40,43 @@ class Bomba(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (X_Jogador,Y_jogador)
 
+        self.tempo_incial = pygame.time.get_ticks() # marca o tempo que a bomba foi colocada
+
+    def update(self):
+        self.frames_index += 0.25
+
+        if self.frames_index >= len(self.frames):
+            self.frames_index = 0
+
+        self.image = self.frames[int(self.frames_index)]
+        
+        self.tempo_atual = pygame.time.get_ticks()
+        if (self.tempo_atual - self.tempo_incial) >= 2000:
+            self.kill() # remove a bomba
+
+
+
+
+def Sprites_Bomba(Tela,grupo_sprites_bomba):
+    grupo_sprites_bomba.update()
+    grupo_sprites_bomba.draw(Tela)
+    
+class Explosao(pygame.sprite.Sprite):
+    def __init__(self,Largura_sprites, Altura_sprites,X_Jogador,Y_Jogador):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.animacao_explosao = {
+            'explosao': Separa_Sprites_Bomba("Assets/sprites/fxs/explosion.png", Largura_sprites, Altura_sprites)
+        }
+        self.estado = 'explosao'
+        self.frames = self.animacao_explosao[self.estado]
+
+        self.frames_index = 0
+        self.image = self.frames[self.frames_index]
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (X_Jogador,Y_Jogador)
+
     def update(self):
         self.frames_index += 0.25
 
@@ -48,8 +85,8 @@ class Bomba(pygame.sprite.Sprite):
 
         self.image = self.frames[int(self.frames_index)]
 
-def Sprites_Bomba(Tela,grupo_sprites_bomba):
-   
-    grupo_sprites_bomba.draw(Tela)
-    grupo_sprites_bomba.update()
-        
+def sprites_explosao(Tela,grupo_sprites_explosao):
+    
+    grupo_sprites_explosao.update()
+    grupo_sprites_explosao.draw(Tela)
+            

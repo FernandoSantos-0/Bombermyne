@@ -35,8 +35,9 @@ while Rodando:
     if flag_bomba == 1:
         nova_bomba = bomba.Bomba(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
         grupo_sprites_bomba.add(nova_bomba)
-        flag_bomba = 0     
-       
+        flag_bomba = 0
+             
+      
     bomba.Sprites_Bomba(Tela,grupo_sprites_bomba) # comando necessario para o desenha na tela a bomba
     
     player.sprites_jogador(grupo_sprites,Tela,jogador,X_Jogador,Y_Jogador,estado) # comando necessario para desenha na tela o player 
