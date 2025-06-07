@@ -1,12 +1,10 @@
-# Onde a tela dos creditos sera criada
-
 import pygame
 import settings
 import TelaMenu
 
 pygame.init()
 
-def creditos():
+def menu():
 
     constantes = settings.Constantes()
     largura = constantes[0]
@@ -18,7 +16,7 @@ def creditos():
 
     # TELA/JANELA
     tela = pygame.display.set_mode((largura, altura))
-    pygame.display.set_caption("Creditos")
+    pygame.display.set_caption("Menu")
 
     relogio = pygame.time.Clock()
 
@@ -34,6 +32,4 @@ def creditos():
         pygame.display.update()
 
     pygame.quit()
-    TelaMenu.menu()
 
-creditos()
