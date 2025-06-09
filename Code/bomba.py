@@ -47,6 +47,7 @@ class Bomba(pygame.sprite.Sprite):
         self.altura_sprite = Altura_sprites
         self.largura_sprites = Largura_sprites
 
+        self.raio = 3 # controla raio da explosao
 
     def update(self,grupo_sprites_explosa):
         self.frames_index += 0.25
@@ -58,8 +59,23 @@ class Bomba(pygame.sprite.Sprite):
         
         self.tempo_atual = pygame.time.get_ticks()
         if (self.tempo_atual - self.tempo_incial) >= 2000:
+            for raio_ in range(1, self.raio+1):
+            #cima
+                nova_explosao = Explosao(self.largura_sprites,self.altura_sprite,self.x_jogador_explosa,self.y_jogador_explosa-32*raio_)
+                grupo_sprites_explosa.add(nova_explosao) 
+            #Baixo
+                nova_explosao = Explosao(self.largura_sprites,self.altura_sprite,self.x_jogador_explosa,self.y_jogador_explosa+32*raio_)
+                grupo_sprites_explosa.add(nova_explosao) 
+            #direita
+                nova_explosao = Explosao(self.largura_sprites,self.altura_sprite,self.x_jogador_explosa+32*raio_,self.y_jogador_explosa)
+                grupo_sprites_explosa.add(nova_explosao) 
+            #esquerda
+                nova_explosao = Explosao(self.largura_sprites,self.altura_sprite,self.x_jogador_explosa-32*raio_,self.y_jogador_explosa)
+                grupo_sprites_explosa.add(nova_explosao)
+        #bomba meio
             nova_explosao = Explosao(self.largura_sprites,self.altura_sprite,self.x_jogador_explosa,self.y_jogador_explosa)
-            grupo_sprites_explosa.add(nova_explosao) 
+            grupo_sprites_explosa.add(nova_explosao)
+            
             self.kill() # remove a bomba
 
 def Sprites_Bomba(Tela,grupo_sprites_bomba,grupo_sprites_explosa):
