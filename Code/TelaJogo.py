@@ -46,8 +46,7 @@ while Rodando:
 
     player.sprites_jogador(grupo_sprites,Tela,jogador,X_Jogador,Y_Jogador,estado) # comando necessario para desenha na tela o player 
 
-    for sprite in grupo_sprites:
-        utilitarios.Colisao_janela(sprite, Largura, Altura)
+    X_Jogador,Y_Jogador = utilitarios.Colisao_janela(X_Jogador,Y_Jogador)
 
     pygame.display.flip() # Atualiza a tela
 

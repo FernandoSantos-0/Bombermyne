@@ -1,15 +1,27 @@
 # Módulos utilitários (colisões, helpers)
 
 import pygame
+import settings
+
+constantes = settings.Constantes()
+largura = constantes[0]
+altura = constantes[1]
+Largura_sprites = constantes[2]
+Altura_sprites = constantes[3]
 
 pygame.init()
 
-def Colisao_janela(sprite, largura_janela, altura_janela):
-    if sprite.rect.left < 0:
-        sprite.rect.left = 0
-    if sprite.rect.right > largura_janela:
-        sprite.rect.right = largura_janela
-    if sprite.rect.top < 0:
-        sprite.rect.top = 0
-    if sprite.rect.bottom > altura_janela:
-        sprite.rect.bottom = altura_janela
+def Colisao_janela(X_Jogador,Y_Jogador):
+    if X_Jogador < 0:  
+        X_Jogador = 0
+    
+    if X_Jogador > largura-32:
+        X_Jogador = largura - Largura_sprites
+
+    if Y_Jogador < 0:  
+        Y_Jogador = 0
+    
+    if Y_Jogador > altura-32:
+        Y_Jogador = altura - Altura_sprites
+
+    return X_Jogador,Y_Jogador
