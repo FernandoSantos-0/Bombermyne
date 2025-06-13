@@ -5,6 +5,7 @@ import settings
 import Teclado
 import player 
 import bomba
+import utilitarios
 
 Largura,Altura,Largura_sprites,Altura_sprites,flag_boneco_parado,flag_bomba = settings.Constantes() # Constantes 
 
@@ -44,6 +45,9 @@ while Rodando:
     bomba.sprites_explosao(Tela,grupo_sprites_explosa) # desenha a explosao
 
     player.sprites_jogador(grupo_sprites,Tela,jogador,X_Jogador,Y_Jogador,estado) # comando necessario para desenha na tela o player 
+
+    for sprite in grupo_sprites:
+        utilitarios.Colisao_janela(sprite, Largura, Altura)
 
     pygame.display.flip() # Atualiza a tela
 
