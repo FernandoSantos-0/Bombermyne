@@ -6,6 +6,7 @@ import Teclado
 import player 
 import bomba
 import utilitarios
+import mapa
 
 Largura,Altura,Largura_sprites,Altura_sprites,flag_boneco_parado,flag_bomba = settings.Constantes() # Constantes 
 
@@ -32,6 +33,8 @@ while Rodando:
     Relogio.tick(FPS) # FPS
 
     Tela.fill(PRETO) # Pintando a tela de Preto
+
+    mapa.Mapa1(Tela)
 
     Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado,flag_bomba = Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado,flag_bomba) # Integração com o teclado
     
