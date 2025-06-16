@@ -28,13 +28,17 @@ grupo_sprites_bomba = pygame.sprite.Group() # incializando um grupos de sprites 
 
 grupo_sprites_explosa = pygame.sprite.Group() # incializando um grupos de sprites para explosoes
 
+grupo_sprites_mapa = pygame.sprite.Group()
+
+mapa.Mapa1(Tela,grupo_sprites_mapa) # cria o mapa
+
 while Rodando:
 
     Relogio.tick(FPS) # FPS
 
     Tela.fill(PRETO) # Pintando a tela de Preto
 
-    mapa.Mapa1(Tela)
+    grupo_sprites_mapa.draw(Tela) # desenha esse mapa
 
     Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado,flag_bomba = Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado,flag_bomba) # Integração com o teclado
     
@@ -51,5 +55,6 @@ while Rodando:
 
     X_Jogador,Y_Jogador = utilitarios.Colisao_janela(X_Jogador,Y_Jogador)
 
+    
     pygame.display.flip() # Atualiza a tela
 

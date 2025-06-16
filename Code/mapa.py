@@ -4,19 +4,33 @@ import pygame
 
 pygame.init()
 
-def Mapa1(Tela):
+class Texturas_para_mapa(pygame.sprite.Sprite):
+    def __init__(self,X_mapa,Y_mapa,estado):
+        pygame.sprite.Sprite.__init__(self)
 
-    bloco_muro_sombra = pygame.image.load("Assets/sprites2/blocofrente-1.png").convert_alpha()
+        self.texturas = {
+            "bloco_muro_sombra": pygame.image.load("Assets/sprites2/blocofrente-1.png").convert_alpha(),
+            "bloco_muro": pygame.image.load("Assets/sprites2/bloco-1.png").convert_alpha(),
+            "bloco_grama": pygame.image.load("Assets/sprites/terrain/grass - Copia.png").convert_alpha(),
+        }
 
-    bloco_muro = pygame.image.load("Assets/sprites2/bloco-1.png").convert_alpha()
+        self.estado_textura = estado
+        self.image = self.texturas[self.estado_textura]
 
-    bloco_grama = pygame.image.load("Assets/sprites/terrain/grass - Copia.png").convert_alpha()
+        self.rect = self.image.get_rect() # pegando o tamanho da image em pixiel
+        self.rect.topleft = (X_mapa,Y_mapa)   # X e Y onde a image vai sert desenhada 
+    
+    def mudar_estado(self,estado):
+        self.image = self.texturas[estado]
+
+def Mapa1(Tela,grupo_sprites_mapa):
 
     size_textura = 32
 
     # bloco_grama = 1, bloco_muro_sombra = 2, bloco_muro = 3, vazio = 0
+    # matriz que representa a tela do jogo ultilizando blocos de 32x32 px
 
-    matriz_mapa = [
+    matriz_mapa1 = [
         [3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3],
         [3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3],
         [3,1,2,1,2,1,2,1,2,1,1,2,1,2,1,2,1,2,1,3],
@@ -31,15 +45,22 @@ def Mapa1(Tela):
         [3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3],
         [3,1,2,1,2,1,2,1,2,1,1,2,1,2,1,2,1,2,1,3],
         [3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3],
-        [3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3],
+        [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
     ]
 
-
-    for y, linha in enumerate(matriz_mapa):
+    for y, linha in enumerate(matriz_mapa1):
         for x, coluna in enumerate(linha):
             if coluna == 1:
-                Tela.blit(bloco_grama, (x * size_textura, y * size_textura))
+                estado = "bloco_grama"
+                
             elif coluna == 2:
-                Tela.blit(bloco_muro_sombra, (x * size_textura, y * size_textura))
+                estado = "bloco_muro_sombra"
+
             elif coluna == 3:
-                Tela.blit(bloco_muro, (x * size_textura, y * size_textura))
+                estado = "bloco_muro"
+
+            else:
+                continue
+
+            bloco = Texturas_para_mapa(x * size_textura, y * size_textura, estado)
+            grupo_sprites_mapa.add(bloco)
