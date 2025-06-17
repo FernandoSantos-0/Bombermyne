@@ -23,7 +23,7 @@ class Texturas_para_mapa(pygame.sprite.Sprite):
     def mudar_estado(self,estado):
         self.image = self.texturas[estado]
 
-def Mapa1(Tela,grupo_sprites_mapa):
+def Mapa1(grupo_sprites_mapa,grupo_sprites_mapa_colisoes):
 
     size_textura = 32
 
@@ -31,6 +31,7 @@ def Mapa1(Tela,grupo_sprites_mapa):
     # matriz que representa a tela do jogo ultilizando blocos de 32x32 px
 
     matriz_mapa1 = [
+
         [3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3],
         [3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3],
         [3,1,2,1,2,1,2,1,2,1,1,2,1,2,1,2,1,2,1,3],
@@ -46,6 +47,7 @@ def Mapa1(Tela,grupo_sprites_mapa):
         [3,1,2,1,2,1,2,1,2,1,1,2,1,2,1,2,1,2,1,3],
         [3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3],
         [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+        
     ]
 
     for y, linha in enumerate(matriz_mapa1):
@@ -62,5 +64,9 @@ def Mapa1(Tela,grupo_sprites_mapa):
             else:
                 continue
 
+            if estado == "bloco_muro_sombra" or estado == "bloco_muro":
+                bloco_colisao = Texturas_para_mapa(x * size_textura, y * size_textura, estado)
+                grupo_sprites_mapa_colisoes.add(bloco_colisao)    
+            
             bloco = Texturas_para_mapa(x * size_textura, y * size_textura, estado)
             grupo_sprites_mapa.add(bloco)

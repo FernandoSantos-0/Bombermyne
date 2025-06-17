@@ -1,7 +1,7 @@
 import pygame
 
 
-def teclado(X_Jogador, Y_Jogador, velocidade,estado,flag_boneco_parado,flag_bomba):
+def teclado(X_Jogador, Y_Jogador, velocidade,estado,flag_boneco_parado,flag_bomba,jogador):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return False, X_Jogador, Y_Jogador,estado,flag_boneco_parado,flag_bomba

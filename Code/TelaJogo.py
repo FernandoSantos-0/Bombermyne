@@ -22,15 +22,10 @@ pygame.display.set_caption("BomberMyne") # Nomeando a Tela
 Relogio = pygame.time.Clock() # Definindo relogio
 
 jogador = player.Player(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
-grupo_sprites = pygame.sprite.Group(jogador)
 
-grupo_sprites_bomba = pygame.sprite.Group() # incializando um grupos de sprites para bombas
+grupo_sprites,grupo_sprites_bomba,grupo_sprites_explosa,grupo_sprites_mapa,grupo_sprites_mapa_colisoes = utilitarios.Grupos_De_Sprites(jogador)
 
-grupo_sprites_explosa = pygame.sprite.Group() # incializando um grupos de sprites para explosoes
-
-grupo_sprites_mapa = pygame.sprite.Group()
-
-mapa.Mapa1(Tela,grupo_sprites_mapa) # cria o mapa
+mapa.Mapa1(grupo_sprites_mapa,grupo_sprites_mapa_colisoes) # cria o mapa
 
 while Rodando:
 
@@ -39,8 +34,12 @@ while Rodando:
     Tela.fill(PRETO) # Pintando a tela de Preto
 
     grupo_sprites_mapa.draw(Tela) # desenha esse mapa
+    grupo_sprites_mapa_colisoes.draw(Tela)
 
-    Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado,flag_bomba = Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado,flag_bomba) # Integração com o teclado
+    x_anterio = X_Jogador
+    y_anterior = Y_Jogador
+
+    Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado,flag_bomba = Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado,flag_bomba,jogador) # Integração com o teclado
     
     if flag_bomba == 1:       
         nova_bomba = bomba.Bomba(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
@@ -53,8 +52,8 @@ while Rodando:
 
     player.sprites_jogador(grupo_sprites,Tela,jogador,X_Jogador,Y_Jogador,estado) # comando necessario para desenha na tela o player 
 
-    X_Jogador,Y_Jogador = utilitarios.Colisao_janela(X_Jogador,Y_Jogador)
+    X_Jogador,Y_Jogador = utilitarios.Colisao_mapa(jogador,grupo_sprites_mapa_colisoes,x_anterio,y_anterior, X_Jogador,Y_Jogador)
 
+    X_Jogador,Y_Jogador = utilitarios.Colisao_janela(X_Jogador,Y_Jogador)
     
     pygame.display.flip() # Atualiza a tela
-

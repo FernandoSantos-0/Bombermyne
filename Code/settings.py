@@ -15,8 +15,8 @@ def variaveis():
     
     Rodando = True
     FPS = 60
-    X_Jogador = 100
-    Y_Jogador = 100
+    X_Jogador = 320
+    Y_Jogador = 240
     Velocidade = 3
     estado = 'parado_frente'
     
