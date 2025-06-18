@@ -64,9 +64,8 @@ def Mapa1(grupo_sprites_mapa,grupo_sprites_mapa_colisoes):
             else:
                 continue
 
-            if estado == "bloco_muro_sombra" or estado == "bloco_muro":
-                bloco_colisao = Texturas_para_mapa(x * size_textura, y * size_textura, estado)
-                grupo_sprites_mapa_colisoes.add(bloco_colisao)    
-            
             bloco = Texturas_para_mapa(x * size_textura, y * size_textura, estado)
             grupo_sprites_mapa.add(bloco)
+
+            if estado == "bloco_muro_sombra" or estado == "bloco_muro":
+                grupo_sprites_mapa_colisoes.add(bloco)    
