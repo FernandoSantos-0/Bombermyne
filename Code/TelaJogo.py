@@ -39,8 +39,8 @@ while Rodando:
     x_anterio = X_Jogador
     y_anterior = Y_Jogador
 
-    Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado,flag_bomba = Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado,flag_bomba) # Integração com o teclado
-      
+    Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado,flag_bomba= Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado,flag_bomba) # Integração com o teclado
+
     if flag_bomba == 1:       
         nova_bomba = bomba.Bomba(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
         grupo_sprites_bomba.add(nova_bomba)
