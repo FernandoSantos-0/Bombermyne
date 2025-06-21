@@ -8,53 +8,36 @@ pygame.init()
 
 def menu():
 
-    X_start = 220
-    y_start = 208
-
-    X_creditos = 220
-    y_creditos = 291
-
-    x_logo = 32
-    y_logo = 30
-
-    tipo_start = 1
-    tipo_creditos = 3
-    tipo_logo = 2
-
     constantes = settings.Constantes()
     largura = constantes[0]
     altura = constantes[1]
-    
     rodando = True
 
-    PRETO = settings.Cores()[1]
+    PRETO = settings.Cores()[0]
 
-    # TELA/JANELA
     tela = pygame.display.set_mode((largura, altura))
     pygame.display.set_caption("Menu")
-
     relogio = pygame.time.Clock()
 
-    texto_start = Auxiliar_Menu.Textos(X_start,y_start,tipo_start,nova_largura=200,nova_altura=63)
-
-    texto_creditos = Auxiliar_Menu.Textos(X_creditos,y_creditos,tipo_creditos,nova_largura=200,nova_altura=52)
-
-    texto_logo = Auxiliar_Menu.Textos(x_logo,y_logo,tipo_logo,nova_largura=576,nova_altura=107)
-
-    grupo_sprite_textos = pygame.sprite.Group()
-
-    grupo_sprite_textos.add(texto_start)
-    grupo_sprite_textos.add(texto_creditos)
-    grupo_sprite_textos.add(texto_logo)
+    x_central = (largura - 200) // 2
     
-    while rodando:
-        
-        tela.fill(PRETO)
+    texto_start = Auxiliar_Menu.Textos(x_central, 210, tipo=1)
+    texto_creditos = Auxiliar_Menu.Textos(x_central, 270, tipo=2)
+    texto_exit = Auxiliar_Menu.Textos(x_central, 330, tipo=3)
+    texto_logo = Auxiliar_Menu.Textos(32, 30, tipo=4)
 
+    grupo_sprite_textos = pygame.sprite.Group(
+        texto_logo, texto_start, texto_creditos, texto_exit
+    )
+
+    while rodando:
+
+        relogio.tick(60)
+
+        tela.fill(PRETO)
+        
         grupo_sprite_textos.draw(tela)
         grupo_sprite_textos.update()
-
-        relogio.tick(30)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -66,8 +49,8 @@ def menu():
                         TelaJogo.jogo()
                     elif texto_creditos.rect.collidepoint(pos_mouse):
                         TelaCreditos.creditos()
-                    elif texto_logo.rect.collidepoint(pos_mouse):
-                        print("Clicou no logo!")
+                    elif texto_exit.rect.collidepoint(pos_mouse):
+                        rodando = False
 
         pygame.display.update()
 

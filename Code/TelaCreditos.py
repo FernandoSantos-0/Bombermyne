@@ -32,6 +32,3 @@ def creditos():
                 rodando = False
 
         pygame.display.update()
-
-    pygame.quit()
-    TelaMenu.menu()
