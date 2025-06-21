@@ -1,6 +1,8 @@
 import pygame
 import settings
 import Auxiliar_Menu
+import TelaJogo
+import TelaCreditos
 
 pygame.init()
 
@@ -25,7 +27,7 @@ def menu():
     
     rodando = True
 
-    PRETO = settings.Cores()[0]
+    PRETO = settings.Cores()[1]
 
     # TELA/JANELA
     tela = pygame.display.set_mode((largura, altura))
@@ -50,12 +52,22 @@ def menu():
         tela.fill(PRETO)
 
         grupo_sprite_textos.draw(tela)
-    
+        grupo_sprite_textos.update()
+
         relogio.tick(30)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 rodando = False
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if evento.button == 1:
+                    pos_mouse = pygame.mouse.get_pos()
+                    if texto_start.rect.collidepoint(pos_mouse):
+                        TelaJogo.jogo()
+                    elif texto_creditos.rect.collidepoint(pos_mouse):
+                        TelaCreditos.creditos()
+                    elif texto_logo.rect.collidepoint(pos_mouse):
+                        print("Clicou no logo!")
 
         pygame.display.update()
 
