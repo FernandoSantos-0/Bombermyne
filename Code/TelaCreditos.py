@@ -35,5 +35,3 @@ def creditos():
 
     pygame.quit()
     TelaMenu.menu()
-
-creditos()

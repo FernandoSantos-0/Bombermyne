@@ -47,7 +47,7 @@ def teclado(X_Jogador, Y_Jogador, velocidade, estado, flag_boneco_parado, flag_b
 
     return True, X_Jogador, Y_Jogador, estado, flag_boneco_parado, flag_bomba
 
-def arredondar_para_32(n, tolerancia=9):
+def arredondar_para_32(n, tolerancia=12):
     resto = n % 32
     if resto <= tolerancia:
         return n - resto
