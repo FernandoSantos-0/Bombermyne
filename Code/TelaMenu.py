@@ -1,3 +1,5 @@
+# onde ficara a funcao menu que chamara as funcoes jogo e creditos
+
 import pygame
 import settings
 import Auxiliar_Menu

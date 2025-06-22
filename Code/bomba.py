@@ -4,6 +4,14 @@ import pygame
 
 pygame.init()
 
+def arredondar_para_32(n, tolerancia=16):
+    resto = n % 32
+    if resto <= tolerancia:
+        return n - resto
+    elif 32 - resto <= tolerancia:
+        return n + (32 - resto)
+    return n 
+
 def Separa_Sprites_Bomba(path,Largura_sprites, Altura_sprites):
     
     Imagem = pygame.image.load(path).convert_alpha()
@@ -36,6 +44,9 @@ class Bomba(pygame.sprite.Sprite):
 
         self.frames_index = 0
         self.image = self.frames[self.frames_index]
+
+        X_Jogador = arredondar_para_32(X_Jogador)
+        Y_jogador = arredondar_para_32(Y_jogador)
 
         self.rect = self.image.get_rect()
         self.rect.topleft = (X_Jogador,Y_jogador)

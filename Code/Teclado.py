@@ -1,3 +1,5 @@
+# Funcoes do teclado para ser chamada na funcao jogo
+
 import pygame
 
 def teclado(X_Jogador, Y_Jogador, velocidade, estado, flag_boneco_parado, flag_bomba):

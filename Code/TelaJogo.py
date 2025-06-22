@@ -25,9 +25,9 @@ def jogo():
 
     jogador = player.Player(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
 
-    grupo_sprites,grupo_sprites_bomba,grupo_sprites_explosa,grupo_sprites_mapa,grupo_sprites_mapa_colisoes = utilitarios.Grupos_De_Sprites(jogador)
+    grupo_sprites,grupo_sprites_bomba,grupo_sprites_explosa,grupo_sprites_mapa,grupo_sprites_mapa_colisoes,grupo_obstaculos  = utilitarios.Grupos_De_Sprites(jogador)
 
-    mapa.Mapa1(grupo_sprites_mapa,grupo_sprites_mapa_colisoes) # cria o mapa
+    mapa.Mapa1(grupo_sprites_mapa,grupo_sprites_mapa_colisoes,grupo_obstaculos) # cria o mapa
 
     while Rodando:
 
@@ -35,8 +35,9 @@ def jogo():
 
         Tela.fill(PRETO) # Pintando a tela de Preto
 
-        grupo_sprites_mapa.draw(Tela) # desenha esse mapa
-        grupo_sprites_mapa_colisoes.draw(Tela)
+        utilitarios.Desenhar_mapa(grupo_sprites_mapa,grupo_sprites_mapa_colisoes,grupo_obstaculos,Tela,grupo_sprites_explosa)
+
+        utilitarios.Colisao_explosao(grupo_sprites_explosa,grupo_sprites_mapa_colisoes)
 
         x_anterio = X_Jogador
         y_anterior = Y_Jogador
