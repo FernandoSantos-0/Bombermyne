@@ -34,10 +34,8 @@ def jogo():
         Relogio.tick(FPS) # FPS
 
         Tela.fill(PRETO) # Pintando a tela de Preto
-
+        
         utilitarios.Desenhar_mapa(grupo_sprites_mapa,grupo_sprites_mapa_colisoes,grupo_obstaculos,Tela,grupo_sprites_explosa)
-
-        utilitarios.Colisao_explosao(grupo_sprites_explosa,grupo_sprites_mapa_colisoes)
 
         x_anterio = X_Jogador
         y_anterior = Y_Jogador
@@ -49,9 +47,7 @@ def jogo():
             grupo_sprites_bomba.add(nova_bomba)
             flag_bomba = 0
 
-        bomba.Sprites_Bomba(Tela,grupo_sprites_bomba,grupo_sprites_explosa) # comando necessario para o desenha na tela a bomba e chamar a class bomba
-        
-        bomba.sprites_explosao(Tela,grupo_sprites_explosa) # desenha a explosao
+        bomba.Sprites_Bomba(Tela,grupo_sprites_bomba,grupo_sprites_explosa,grupo_sprites_mapa_colisoes) # comando necessario para o desenha na tela a bomba e chamar a class bomba
 
         player.sprites_jogador(grupo_sprites,Tela,jogador,X_Jogador,Y_Jogador,estado) # comando necessario para desenha na tela o player 
 

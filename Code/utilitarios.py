@@ -43,11 +43,14 @@ def Colisao_mapa(jogador,grupo_sprites_mapa_colisoes,x_anterio,y_anterior, X_Jog
         Y_Jogador = y_anterior
     return X_Jogador,Y_Jogador
 
-def Colisao_explosao(grupo_sprites_explosa,grupo_sprites_mapa_colisoes):
-    pygame.sprite.groupcollide(grupo_sprites_explosa, grupo_sprites_mapa_colisoes, True, False)
-
 def Desenhar_mapa(grupo_sprites_mapa,grupo_sprites_mapa_colisoes,grupo_obstaculos,Tela,grupo_sprites_explosa):    
-    grupo_sprites_mapa.draw(Tela) 
+    
+    grupo_sprites_mapa.draw(Tela)
+    
+    grupo_sprites_explosa.draw(Tela)
+    grupo_sprites_explosa.update()
+    
     grupo_sprites_mapa_colisoes.draw(Tela)
+    
     grupo_obstaculos.draw(Tela)
     grupo_obstaculos.update(grupo_sprites_explosa)

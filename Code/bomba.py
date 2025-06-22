@@ -60,37 +60,37 @@ class Bomba(pygame.sprite.Sprite):
 
         self.raio = 3 # controla raio da explosao
 
-    def update(self,grupo_sprites_explosa):
+    def update(self, grupo_sprites_explosa, grupo_sprites_mapa_colisoes):
         self.frames_index += 0.25
-
         if self.frames_index >= len(self.frames):
             self.frames_index = 0
 
         self.image = self.frames[int(self.frames_index)]
-        
+
         self.tempo_atual = pygame.time.get_ticks()
         if (self.tempo_atual - self.tempo_incial) >= 2000:
-            for raio_ in range(1, self.raio+1):
-            #cima
-                nova_explosao = Explosao(self.largura_sprites,self.altura_sprite,self.x_jogador_explosa,self.y_jogador_explosa-32*raio_)
-                grupo_sprites_explosa.add(nova_explosao) 
-            #Baixo
-                nova_explosao = Explosao(self.largura_sprites,self.altura_sprite,self.x_jogador_explosa,self.y_jogador_explosa+32*raio_)
-                grupo_sprites_explosa.add(nova_explosao) 
-            #direita
-                nova_explosao = Explosao(self.largura_sprites,self.altura_sprite,self.x_jogador_explosa+32*raio_,self.y_jogador_explosa)
-                grupo_sprites_explosa.add(nova_explosao) 
-            #esquerda
-                nova_explosao = Explosao(self.largura_sprites,self.altura_sprite,self.x_jogador_explosa-32*raio_,self.y_jogador_explosa)
-                grupo_sprites_explosa.add(nova_explosao)
-        #bomba meio
-            nova_explosao = Explosao(self.largura_sprites,self.altura_sprite,self.x_jogador_explosa,self.y_jogador_explosa)
-            grupo_sprites_explosa.add(nova_explosao)
-            
-            self.kill() # remove a bomba
 
-def Sprites_Bomba(Tela,grupo_sprites_bomba,grupo_sprites_explosa):
-    grupo_sprites_bomba.update(grupo_sprites_explosa)
+            grupo_sprites_explosa.add(Explosao(self.largura_sprites, self.altura_sprite, self.x_jogador_explosa, self.y_jogador_explosa))
+
+            direcoes = [(0, -1), (0, 1), (1, 0), (-1, 0)]
+
+            for direcao_x, direcao_y in direcoes:
+                for i in range(1, self.raio + 1):
+                    x = self.x_jogador_explosa + direcao_x * 32 * i
+                    y = self.y_jogador_explosa + direcao_y * 32 * i
+
+                    nova_explosao = Explosao(self.largura_sprites, self.altura_sprite, x, y)
+
+                    if pygame.sprite.spritecollide(nova_explosao, grupo_sprites_mapa_colisoes, False):
+                        grupo_sprites_explosa.add(nova_explosao)  
+                        break  
+                    else:
+                        grupo_sprites_explosa.add(nova_explosao)
+
+            self.kill() 
+
+def Sprites_Bomba(Tela,grupo_sprites_bomba,grupo_sprites_explosa,grupo_sprites_mapa_colisoes):
+    grupo_sprites_bomba.update(grupo_sprites_explosa,grupo_sprites_mapa_colisoes)
     grupo_sprites_bomba.draw(Tela)
     
 class Explosao(pygame.sprite.Sprite):
@@ -122,9 +122,4 @@ class Explosao(pygame.sprite.Sprite):
         self.time_atual = pygame.time.get_ticks()
         if (self.time_atual - self.time_incio) >= 500:
             self.kill()
-
-def sprites_explosao(Tela,grupo_sprites_explosao):
-    
-    grupo_sprites_explosao.update()
-    grupo_sprites_explosao.draw(Tela)
-            
+        
