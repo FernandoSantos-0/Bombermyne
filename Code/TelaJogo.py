@@ -12,7 +12,7 @@ def jogo():
     
     Largura,Altura,Largura_sprites,Altura_sprites,flag_boneco_parado,flag_bomba = settings.Constantes() # Constantes 
 
-    Rodando, FPS, X_Jogador,Y_Jogador,Velocidade,estado = settings.variaveis() # Variaveis 
+    Rodando, FPS, X_Jogador,Y_Jogador,Velocidade,estado,quantidade_bombas = settings.variaveis() # Variaveis 
 
     PRETO, BRANCO = settings.Cores() # Cores
 
@@ -42,9 +42,10 @@ def jogo():
 
         Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado,flag_bomba= Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado,flag_bomba) # Integração com o teclado
 
-        if flag_bomba == 1:       
-            nova_bomba = bomba.Bomba(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
-            grupo_sprites_bomba.add(nova_bomba)
+        if flag_bomba == 1:
+            if len(grupo_sprites_bomba) < quantidade_bombas:      
+                nova_bomba = bomba.Bomba(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
+                grupo_sprites_bomba.add(nova_bomba)
             flag_bomba = 0
 
         bomba.Sprites_Bomba(Tela,grupo_sprites_bomba,grupo_sprites_explosa,grupo_sprites_mapa_colisoes) # comando necessario para o desenha na tela a bomba e chamar a class bomba

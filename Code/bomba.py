@@ -58,9 +58,9 @@ class Bomba(pygame.sprite.Sprite):
         self.altura_sprite = Altura_sprites
         self.largura_sprites = Largura_sprites
 
-        self.raio = 3 # controla raio da explosao
+        self.raio = 1 # controla raio da explosao = tamanho do raio - 1
 
-    def update(self, grupo_sprites_explosa, grupo_sprites_mapa_colisoes):
+    def update(self, grupo_sprites_explosa, grupo_sprites_mapa_colisoes,grupo_sprites_bomba):
         self.frames_index += 0.25
         if self.frames_index >= len(self.frames):
             self.frames_index = 0
@@ -86,11 +86,15 @@ class Bomba(pygame.sprite.Sprite):
                         break  
                     else:
                         grupo_sprites_explosa.add(nova_explosao)
-
+                    
+                    bomba_colisao = pygame.sprite.spritecollide(nova_explosao, grupo_sprites_bomba, False)
+                    for bomba in bomba_colisao:
+                        bomba.tempo_incial = 0
+                    
             self.kill() 
 
 def Sprites_Bomba(Tela,grupo_sprites_bomba,grupo_sprites_explosa,grupo_sprites_mapa_colisoes):
-    grupo_sprites_bomba.update(grupo_sprites_explosa,grupo_sprites_mapa_colisoes)
+    grupo_sprites_bomba.update(grupo_sprites_explosa,grupo_sprites_mapa_colisoes,grupo_sprites_bomba)
     grupo_sprites_bomba.draw(Tela)
     
 class Explosao(pygame.sprite.Sprite):
