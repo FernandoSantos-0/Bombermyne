@@ -29,6 +29,8 @@ def jogo():
 
     mapa.Mapa1(grupo_sprites_mapa,grupo_sprites_mapa_colisoes,grupo_obstaculos) # cria o mapa
 
+    bomba_atual = None
+
     while Rodando:
 
         Relogio.tick(FPS) # FPS
@@ -46,6 +48,7 @@ def jogo():
             if len(grupo_sprites_bomba) < quantidade_bombas:      
                 nova_bomba = bomba.Bomba(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
                 grupo_sprites_bomba.add(nova_bomba)
+                bomba_atual = nova_bomba
             flag_bomba = 0
 
         bomba.Sprites_Bomba(Tela,grupo_sprites_bomba,grupo_sprites_explosa,grupo_sprites_mapa_colisoes) # comando necessario para o desenha na tela a bomba e chamar a class bomba
@@ -53,6 +56,8 @@ def jogo():
         player.sprites_jogador(grupo_sprites,Tela,jogador,X_Jogador,Y_Jogador,estado) # comando necessario para desenha na tela o player 
 
         X_Jogador,Y_Jogador = utilitarios.Colisao_mapa(jogador,grupo_sprites_mapa_colisoes,x_anterio,y_anterior, X_Jogador,Y_Jogador)
+
+        X_Jogador,Y_Jogador,bomba_atual = utilitarios.colisao_bomba(jogador,grupo_sprites_bomba,x_anterio,y_anterior, X_Jogador,Y_Jogador,bomba_atual)
 
         X_Jogador,Y_Jogador = utilitarios.Colisao_janela(X_Jogador,Y_Jogador)
         

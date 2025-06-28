@@ -43,6 +43,21 @@ def Colisao_mapa(jogador,grupo_sprites_mapa_colisoes,x_anterio,y_anterior, X_Jog
         Y_Jogador = y_anterior
     return X_Jogador,Y_Jogador
 
+def colisao_bomba(jogador,grupo_sprites_bomba,x_anterio,y_anterio, X_Jogador,Y_Jogador,bomba_atual):
+
+    bomba_colidida = pygame.sprite.spritecollideany(jogador,grupo_sprites_bomba)
+
+    if bomba_colidida:
+
+        if bomba_colidida == bomba_atual:
+            return X_Jogador,Y_Jogador, bomba_atual
+        else:
+            X_Jogador = x_anterio
+            Y_Jogador = y_anterio
+            return X_Jogador,Y_Jogador, bomba_atual
+    else:
+        return X_Jogador,Y_Jogador,None
+
 def Desenhar_mapa(grupo_sprites_mapa,grupo_sprites_mapa_colisoes,grupo_obstaculos,Tela,grupo_sprites_explosa):    
     
     grupo_sprites_mapa.draw(Tela)
