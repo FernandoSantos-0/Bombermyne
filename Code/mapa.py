@@ -2,27 +2,32 @@
 
 import pygame
 import obstaculos
+import random
 
 pygame.init()
 
 class Texturas_para_mapa(pygame.sprite.Sprite):
-    def __init__(self,X_mapa,Y_mapa,estado):
+    def __init__(self, X_mapa, Y_mapa, estado):
         pygame.sprite.Sprite.__init__(self)
+
+        self.estado_textura = estado
+        self.random = random.randint(0, 31)
 
         self.texturas = {
             "bloco_muro_sombra": pygame.image.load("Assets/sprites2/blocofrente-1.png").convert_alpha(),
             "bloco_muro": pygame.image.load("Assets/sprites2/bloco-1.png").convert_alpha(),
-            "bloco_grama": pygame.image.load("Assets/sprites/terrain/grass - Copia.png").convert_alpha(),
+            "bloco_grama": Separa_Sprites_Mesmo_PNG("Assets/sprites3/TX Tileset Grass.png"), 
         }
 
-        self.estado_textura = estado
-        self.image = self.texturas[self.estado_textura]
+        if self.estado_textura == 'bloco_grama':
+            self.frames = self.texturas['bloco_grama']
+            self.image = self.frames[self.random] 
+        else:
+            self.image = self.texturas[self.estado_textura]
 
-        self.rect = self.image.get_rect() # pegando o tamanho da image em pixiel
-        self.rect.topleft = (X_mapa,Y_mapa)   # X e Y onde a image vai sert desenhada 
-    
-    def mudar_estado(self,estado):
-        self.image = self.texturas[estado]
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (X_mapa, Y_mapa)
+
 
 def Mapa1(grupo_sprites_mapa, grupo_sprites_mapa_colisoes, grupo_obstaculos):
     
@@ -80,3 +85,29 @@ def Mapa1(grupo_sprites_mapa, grupo_sprites_mapa_colisoes, grupo_obstaculos):
 
             if estado in ["bloco_muro", "bloco_muro_sombra"]:
                 grupo_sprites_mapa_colisoes.add(bloco)
+
+def Separa_Sprites_Mesmo_PNG(path):
+    
+    Largura_sprites=32 
+    Altura_sprites = 32
+    
+    Imagem = pygame.image.load(path).convert_alpha()
+    Largura_total_da_imagen, Altura_total_da_imagen = Imagem.get_size()
+    
+    N_colunas = Largura_total_da_imagen // Largura_sprites
+    N_linhas = Altura_total_da_imagen // Altura_sprites
+
+    frames = []
+
+    for lin in range(N_linhas):
+        for col in range(N_colunas):
+            x = col * Largura_sprites
+            y = lin * Altura_sprites
+            rect = pygame.Rect(x, y, Largura_sprites, Altura_sprites)
+
+            frame_surf = pygame.Surface((Largura_sprites, Altura_sprites), pygame.SRCALPHA)
+            frame_surf.blit(Imagem, (0, 0), rect)
+
+            frames.append(frame_surf)
+
+    return frames

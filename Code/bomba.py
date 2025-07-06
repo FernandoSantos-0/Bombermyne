@@ -58,7 +58,7 @@ class Bomba(pygame.sprite.Sprite):
         self.altura_sprite = Altura_sprites
         self.largura_sprites = Largura_sprites
 
-        self.raio = 1 # controla raio da explosao = tamanho do raio - 1
+        self.raio = 9 # controla raio da explosao = tamanho do raio - 1
 
     def update(self, grupo_sprites_explosa, grupo_sprites_mapa_colisoes,grupo_sprites_bomba):
         self.frames_index += 0.25

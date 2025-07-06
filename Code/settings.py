@@ -19,7 +19,7 @@ def variaveis():
     Y_Jogador = 32
     Velocidade = 3
     estado = 'parado_frente'
-    quantidade_bombas = 1
+    quantidade_bombas = 6
 
     return Rodando,FPS, X_Jogador,Y_Jogador,Velocidade,estado,quantidade_bombas
 

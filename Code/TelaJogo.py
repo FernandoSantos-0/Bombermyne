@@ -44,12 +44,18 @@ def jogo():
 
         Rodando,X_Jogador,Y_Jogador,estado,flag_boneco_parado,flag_bomba= Teclado.teclado(X_Jogador,Y_Jogador,Velocidade,estado,flag_boneco_parado,flag_bomba) # Integração com o teclado
 
+        if bomba_atual is not None and nova_bomba is not None:    
+            if bomba_atual.rect.colliderect(nova_bomba.rect):
+                flag_bomba = 0
+
         if flag_bomba == 1:
             if len(grupo_sprites_bomba) < quantidade_bombas:      
                 nova_bomba = bomba.Bomba(Largura_sprites, Altura_sprites,X_Jogador, Y_Jogador)
                 grupo_sprites_bomba.add(nova_bomba)
                 bomba_atual = nova_bomba
             flag_bomba = 0
+
+
 
         bomba.Sprites_Bomba(Tela,grupo_sprites_bomba,grupo_sprites_explosa,grupo_sprites_mapa_colisoes) # comando necessario para o desenha na tela a bomba e chamar a class bomba
 

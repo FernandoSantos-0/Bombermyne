@@ -51,6 +51,7 @@ def colisao_bomba(jogador,grupo_sprites_bomba,x_anterio,y_anterio, X_Jogador,Y_J
 
         if bomba_colidida == bomba_atual:
             return X_Jogador,Y_Jogador, bomba_atual
+        
         else:
             X_Jogador = x_anterio
             Y_Jogador = y_anterio
